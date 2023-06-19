@@ -1,0 +1,34 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+def capture_screenshot(url, output_path):
+    # Configure Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')  # Run Chrome in headless mode, i.e., without a visible GUI
+    chrome_options.add_argument('--disable-gpu')  # Disable GPU acceleration
+
+    # Create a new instance of the Chrome driver
+    driver = webdriver.Chrome(options=chrome_options)
+
+    try:
+        # Load the webpage
+        driver.get(url)
+
+        # Wait for the page to fully load (you can customize the delay time if needed)
+        driver.implicitly_wait(5)
+
+        # Capture screenshot and save it to the specified output path
+        driver.save_screenshot(output_path)
+        print(f"Screenshot captured and saved to {output_path}")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+    finally:
+        # Quit the driver
+        driver.quit()
+
+
+# Example usage
+website_url = 'https://www.example.com'  # Replace with the desired website URL
+screenshot_path = 'screenshot.png'  # Replace with the desired output path and filename
+
+capture_screenshot(website_url, screenshot_path)
